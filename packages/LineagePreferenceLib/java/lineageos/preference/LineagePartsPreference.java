@@ -39,11 +39,12 @@ public class LineagePartsPreference extends RemotePreference {
         mContext = context;
         mPart = PartsList.get(context).getPartInfo(getKey());
         if (mPart == null) {
-            throw new RuntimeException("Part not found: " + getKey());
+            // throw new RuntimeException("Part not found: " + getKey());
+            setAvailable(false);
+        } else {
+            updatePreference();
+            setIntent(mPart.getIntentForActivity());
         }
-
-        updatePreference();
-        setIntent(mPart.getIntentForActivity());
     }
 
     public LineagePartsPreference(Context context, AttributeSet attrs, int defStyle) {
